@@ -3,6 +3,15 @@ const path = require('path');
 const FileManagerPlugin = require('filemanager-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
+let htmlPageNames = ['fibonachi'];
+let multipleHtmlPlugins = htmlPageNames.map(name => {
+    return new HtmlWebpackPlugin({
+        template: `./src/pug/views/${name}.pug`, // relative path to the HTML files
+        filename: `${name}.html`, // output HTML files
+        chunks: [`${name}`] // respective JS files
+    })
+});
+
 module.exports = {
     entry: path.join(__dirname, 'src', 'index.js'),
     output: {
@@ -30,7 +39,6 @@ module.exports = {
                 ],
             },
         ],
-
     },
     plugins: [
         new HtmlWebpackPlugin({
@@ -47,7 +55,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: '[name].[contenthash].css',
         }),
-    ],
+    ].concat(multipleHtmlPlugins),
     devServer: {
         watchFiles: path.join(__dirname, 'src'),
         port: 9000,

@@ -1,7 +1,5 @@
-doctype html
-html(lang= 'ru')
-    head
-        meta(charset='utf-8')
-        title= 'Быстрый запуск Webpack'
-    body
-        p Файл откомпилирован шаблонизатором Pug
+include pug/layout/main-layout
+
+    block content
+        h1="Main page"
+        a(href="/fibonachi.html") Go to fibonachi page
